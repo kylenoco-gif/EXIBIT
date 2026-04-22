@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEGA FOOD CART</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #0f9b0f, #38ef7d);
+}
+
+/* GLASS FORM */
+.form-container {
+    backdrop-filter: blur(18px);
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    padding: 25px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+}
+
+.header img {
+    width: 50px;
+}
+
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 16px;
+}
+
+/* LABEL */
+label {
+    font-size: 13px;
+    color: #fff;
+}
+
+/* TEXTBOX FIXED */
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    margin-top: 6px;
+    outline: none;
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+/* FOCUS EFFECT */
+input:focus {
+    border: 1px solid #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    transform: scale(1.02);
+}
+
+/* BUTTON */
+.btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* WELCOME */
+#welcomePage {
+    display: none;
+    text-align: center;
+    width: 100%;
+}
+
+h1, h2, p {
+    color: #fff;
+}
+
+/* LOGO */
+#logo {
+    max-width: 180px;
+    margin: 12px auto 20px;
+}
+
+/* GALLERY */
+.gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* hide scrollbar */
+.gallery::-webkit-scrollbar { display: none; }
+.gallery { scrollbar-width: none; }
+
+.gallery img {
+    width: 300px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* VISIT */
+.visit {
+    margin-top: 20px;
+}
+
+/* LIGHTBOX */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- FORM -->
+<div class="form-container" id="infoFormContainer">
+
+    <div class="header">
+        <h2>MEGA FOOD CART<br>BUSINESS CORPORATION</h2>
+        <img src="image/MEGA.png">
+    </div>
+
+    <form id="infoForm">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullname" required placeholder="Enter full name">
+        </div>
+
+        <div class="form-group">
+            <label>Contact Number</label>
+            <input type="tel" id="phone" required placeholder="09XXXXXXXXX">
+        </div>
+
+        <div class="form-group">
+            <label>Gmail</label>
+            <input type="email" id="gmail" required placeholder="example@gmail.com">
+        </div>
+
+        <button type="submit" class="btn">Proceed</button>
+    </form>
+</div>
+
+<!-- WELCOME -->
+<div id="welcomePage">
+
+    <h1>Welcome, <span id="firstName"></span>!</h1>
+
+    <img id="logo" src="image/logo.png">
+
+    <h2>Gallery</h2>
+
+    <div class="gallery">
+       <img src="image/31.jpg" onclick="zoomImage(this)">
+       <img src="image/32.jpg" onclick="zoomImage(this)">
+        <img src="image/PRICELIST -FRANCHISE_page-0001.jpg" onclick="zoomImage(this)">
+        <img src="image/TABLE.jpg" onclick="zoomImage(this)">
+        <img src="IMAGE/1.jpg" onclick="zoomImage(this)">
+        <img src="image/2.jpg" onclick="zoomImage(this)">
+        <img src="image/3.jpg" onclick="zoomImage(this)">
+        <img src="image/5.jpg" onclick="zoomImage(this)">
+        <img src="image/6.jpg" onclick="zoomImage(this)">
+        <img src="image/7.jpg" onclick="zoomImage(this)">
+        <img src="image/8.jpg" onclick="zoomImage(this)">
+        <img src="image/9.jpg" onclick="zoomImage(this)">
+        <img src="image/10.jpg" onclick="zoomImage(this)">
+        <img src="image/11.jpg" onclick="zoomImage(this)">
+     
+        
+
+
+        <!-- VISIT -->
+        <div class="visit">
+            <p>Visit us:</p>
+            <a href="https://www.facebook.com/megafoodcartofficial" target="_blank">
+                <img src="image/Facebook.png" width="50">
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <button onclick="goBack()" class="btn" style="max-width:200px;">Back</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg">
+</div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCV0dRadda8IvmsTuBvNhaQoMlZKOtV10c",
+  authDomain: "exibitcontacts.firebaseapp.com",
+  databaseURL: "https://exibitcontacts-default-rtdb.firebaseio.com",
+  projectId: "exibitcontacts",
+  storageBucket: "exibitcontacts.firebasestorage.app",
+  messagingSenderId: "918994989812",
+  appId: "1:918994989812:web:a23522c44b445dc80d64a1",
+  measurementId: "G-C540PGGPKS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// SUBMIT FORM
+document.getElementById('infoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullname = document.getElementById('fullname').value;
+    const phone = document.getElementById('phone').value;
+    const gmail = document.getElementById('gmail').value;
+
+    push(ref(db, 'users/'), {
+        fullname: fullname,
+        contactnumber: phone,
+        gmail: gmail,
+        timestamp: Date.now()
+    });
+
+    document.getElementById('firstName').textContent = fullname.split(" ")[0];
+    document.getElementById('infoFormContainer').style.display = 'none';
+    document.getElementById('welcomePage').style.display = 'block';
+});
+
+// FUNCTIONS
+function goBack() {
+    document.getElementById('welcomePage').style.display = 'none';
+    document.getElementById('infoFormContainer').style.display = 'block';
+}
+
+function zoomImage(img) {
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').style.display = 'flex';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+window.goBack = goBack;
+window.zoomImage = zoomImage;
+window.closeLightbox = closeLightbox;
+</script>
+
+</body>
+</html>
