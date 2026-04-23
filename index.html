@@ -13,7 +13,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: linear-gradient(135deg, #0f9b0f, #38ef7d);
 }
 
@@ -29,7 +28,6 @@ body {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
@@ -45,20 +43,18 @@ body {
 
 .header img {
     width: 50px;
+    cursor: pointer; /* Added for long press indication */
 }
 
-/* FORM GROUP */
 .form-group {
     margin-bottom: 16px;
 }
 
-/* LABEL */
 label {
     font-size: 13px;
     color: #fff;
 }
 
-/* TEXTBOX FIXED */
 input {
     width: 100%;
     padding: 12px;
@@ -67,20 +63,17 @@ input {
     margin-top: 6px;
     outline: none;
     box-sizing: border-box;
-
     background: rgba(255, 255, 255, 0.95);
     font-size: 14px;
     transition: 0.2s ease;
 }
 
-/* FOCUS EFFECT */
 input:focus {
     border: 1px solid #00ff88;
     box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
     transform: scale(1.02);
 }
 
-/* BUTTON */
 .btn {
     width: 100%;
     padding: 10px;
@@ -92,8 +85,20 @@ input:focus {
     margin-top: 10px;
 }
 
-/* WELCOME */
-#welcomePage {
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.disclaimer {
+    font-size: 10px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 12px;
+    line-height: 1.4;
+    text-align: justify;
+}
+
+#welcomePage, #adminPanel {
     display: none;
     text-align: center;
     width: 100%;
@@ -103,13 +108,11 @@ h1, h2, p {
     color: #fff;
 }
 
-/* LOGO */
 #logo {
     max-width: 180px;
     margin: 12px auto 20px;
 }
 
-/* GALLERY */
 .gallery {
     display: flex;
     flex-direction: column;
@@ -120,7 +123,6 @@ h1, h2, p {
     padding: 10px;
 }
 
-/* hide scrollbar */
 .gallery::-webkit-scrollbar { display: none; }
 .gallery { scrollbar-width: none; }
 
@@ -130,12 +132,10 @@ h1, h2, p {
     cursor: pointer;
 }
 
-/* VISIT */
 .visit {
     margin-top: 20px;
 }
 
-/* LIGHTBOX */
 #lightbox {
     display: none;
     position: fixed;
@@ -143,23 +143,37 @@ h1, h2, p {
     background: rgba(0,0,0,0.85);
     align-items: center;
     justify-content: center;
+    z-index: 100;
 }
 
 #lightbox img {
     max-width: 90%;
     max-height: 90%;
 }
+
+/* ADMIN STYLES */
+#adminPanel {
+    background: white;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow-y: auto;
+    padding: 20px;
+    color: black;
+}
+#adminPanel h2 { color: #333; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 12px; }
+th { background-color: #f2f2f2; }
 </style>
 </head>
 
 <body>
 
-<!-- FORM -->
 <div class="form-container" id="infoFormContainer">
-
     <div class="header">
         <h2>MEGA FOOD CART<br>BUSINESS CORPORATION</h2>
-        <img src="image/MEGA.png">
+        <img src="image/MEGA.png" id="secretTrigger">
     </div>
 
     <form id="infoForm">
@@ -167,71 +181,70 @@ h1, h2, p {
             <label>Full Name</label>
             <input type="text" id="fullname" required placeholder="Enter full name">
         </div>
-
         <div class="form-group">
             <label>Contact Number</label>
             <input type="tel" id="phone" required placeholder="09XXXXXXXXX">
         </div>
-
         <div class="form-group">
             <label>Gmail</label>
             <input type="email" id="gmail" required placeholder="example@gmail.com">
         </div>
-
-        <button type="submit" class="btn">Proceed</button>
+        <div class="form-group">
+            <label style="font-size:12px;">
+                <input type="checkbox" id="agree" style="width:auto; margin-right:6px;">
+                I agree to the Disclaimer and Data Privacy Policy
+            </label>
+        </div>
+        <button type="submit" class="btn" id="submitBtn" disabled>Proceed</button>
+        <p class="disclaimer">
+        Disclaimer:By providing your information, you consent to the collection and use of your data for marketing and promotional purposes only. All personal information gathered will be handled with strict confidentiality and in compliance with the Data Privacy Act. We do not share your information with third parties without your consent, unless required by law.
+        </p>
     </form>
 </div>
 
-<!-- WELCOME -->
 <div id="welcomePage">
-
     <h1>Welcome, <span id="firstName"></span>!</h1>
-
     <img id="logo" src="image/logo.png">
-
     <h2>Gallery</h2>
-
     <div class="gallery">
        <img src="image/31.jpg" onclick="zoomImage(this)">
        <img src="image/32.jpg" onclick="zoomImage(this)">
-        <img src="image/PRICELIST -FRANCHISE_page-0001.jpg" onclick="zoomImage(this)">
-        <img src="image/TABLE.jpg" onclick="zoomImage(this)">
-        <img src="IMAGE/1.jpg" onclick="zoomImage(this)">
-        <img src="image/2.jpg" onclick="zoomImage(this)">
-        <img src="image/3.jpg" onclick="zoomImage(this)">
-        <img src="image/5.jpg" onclick="zoomImage(this)">
-        <img src="image/6.jpg" onclick="zoomImage(this)">
-        <img src="image/7.jpg" onclick="zoomImage(this)">
-        <img src="image/8.jpg" onclick="zoomImage(this)">
-        <img src="image/9.jpg" onclick="zoomImage(this)">
-        <img src="image/10.jpg" onclick="zoomImage(this)">
-        <img src="image/11.jpg" onclick="zoomImage(this)">
-     
-        
-
-
-        <!-- VISIT -->
-        <div class="visit">
+       <img src="image/PRICELIST -FRANCHISE_page-0001.jpg" onclick="zoomImage(this)">
+       <img src="image/TABLE.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/1.jpg" onclick="zoomImage(this)">
+       <div class="visit">
             <p>Visit us:</p>
             <a href="https://www.facebook.com/megafoodcartofficial" target="_blank">
                 <img src="image/Facebook.png" width="50">
             </a>
         </div>
     </div>
-
     <br>
-    <button onclick="goBack()" class="btn" style="max-width:200px;">Back</button>
+    <button onclick="goBack()" class="btn" style="max-width:200px; background: #333; color: #fff;">Back</button>
 </div>
 
-<!-- LIGHTBOX -->
+<div id="adminPanel">
+    <h2>Admin Records</h2>
+    <button onclick="closeAdmin()" class="btn" style="width:100px; background: red; color:white;">Close</button>
+    <table id="recordsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
 <div id="lightbox" onclick="closeLightbox()">
     <img id="lightboxImg">
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV0dRadda8IvmsTuBvNhaQoMlZKOtV10c",
@@ -247,10 +260,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// AGREEMENT CONTROL
+const agreeCheckbox = document.getElementById('agree');
+const submitBtn = document.getElementById('submitBtn');
+
+agreeCheckbox.addEventListener('change', function () {
+    submitBtn.disabled = !this.checked;
+});
+
 // SUBMIT FORM
 document.getElementById('infoForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
     const fullname = document.getElementById('fullname').value;
     const phone = document.getElementById('phone').value;
     const gmail = document.getElementById('gmail').value;
@@ -267,7 +287,61 @@ document.getElementById('infoForm').addEventListener('submit', function(e) {
     document.getElementById('welcomePage').style.display = 'block';
 });
 
-// FUNCTIONS
+// SECRET ADMIN ACCESS (HOLD FOR 5 SECONDS)
+const trigger = document.getElementById('secretTrigger');
+let timer;
+
+function startHold() {
+    timer = setTimeout(() => {
+        let pass = prompt("Enter Admin Password:");
+        if (pass === "123") {
+            loadAdminData();
+        } else if (pass !== null) {
+            alert("Wrong Password!");
+        }
+    }, 5000); // 5 seconds
+}
+
+function stopHold() {
+    clearTimeout(timer);
+}
+
+trigger.addEventListener('mousedown', startHold);
+trigger.addEventListener('mouseup', stopHold);
+trigger.addEventListener('touchstart', startHold);
+trigger.addEventListener('touchend', stopHold);
+
+async function loadAdminData() {
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = "Loading...";
+    document.getElementById('adminPanel').style.display = 'block';
+    
+    try {
+        const snapshot = await get(ref(db, 'users/'));
+        tableBody.innerHTML = "";
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            for (let id in data) {
+                let row = `<tr>
+                    <td>${data[id].fullname}</td>
+                    <td>${data[id].contactnumber}</td>
+                    <td>${data[id].gmail}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+        } else {
+            tableBody.innerHTML = "<tr><td colspan='3'>No records found.</td></tr>";
+        }
+    } catch (error) {
+        alert("Error fetching data: " + error.message);
+    }
+}
+
+function closeAdmin() {
+    document.getElementById('adminPanel').style.display = 'none';
+}
+
+// SHARED FUNCTIONS
 function goBack() {
     document.getElementById('welcomePage').style.display = 'none';
     document.getElementById('infoFormContainer').style.display = 'block';
@@ -285,6 +359,7 @@ function closeLightbox() {
 window.goBack = goBack;
 window.zoomImage = zoomImage;
 window.closeLightbox = closeLightbox;
+window.closeAdmin = closeAdmin;
 </script>
 
 </body>
