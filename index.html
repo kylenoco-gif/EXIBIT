@@ -205,13 +205,22 @@ th { background-color: #f2f2f2; }
 <div id="welcomePage">
     <h1>Welcome, <span id="firstName"></span>!</h1>
     <img id="logo" src="image/logo.png">
-    <h2>Gallery</h2>
+    <h2>Franchise Details</h2>
     <div class="gallery">
        <img src="image/31.jpg" onclick="zoomImage(this)">
        <img src="image/32.jpg" onclick="zoomImage(this)">
        <img src="image/PRICELIST -FRANCHISE_page-0001.jpg" onclick="zoomImage(this)">
-       <img src="image/TABLE.jpg" onclick="zoomImage(this)">
        <img src="IMAGE/1.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/2.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/3.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/4.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/5.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/6.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/7.jpg" onclick="zoomImage(this)">
+       <img src="IMAGE/8.jpg" onclick="zoomImage(this)">
+        <img src="IMAGE/9.jpg" onclick="zoomImage(this)">
+        <img src="IMAGE/10.jpg" onclick="zoomImage(this)">
+        <img src="IMAGE/11.jpg" onclick="zoomImage(this)">
        <div class="visit">
             <p>Visit us:</p>
             <a href="https://www.facebook.com/megafoodcartofficial" target="_blank">
@@ -224,7 +233,7 @@ th { background-color: #f2f2f2; }
 </div>
 
 <div id="adminPanel">
-    <h2>Admin Records</h2>
+    <h2>Admin Records (Live)</h2>
     <button onclick="closeAdmin()" class="btn" style="width:100px; background: red; color:white;">Close</button>
     <table id="recordsTable">
         <thead>
@@ -244,7 +253,7 @@ th { background-color: #f2f2f2; }
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV0dRadda8IvmsTuBvNhaQoMlZKOtV10c",
@@ -295,7 +304,7 @@ function startHold() {
     timer = setTimeout(() => {
         let pass = prompt("Enter Admin Password:");
         if (pass === "123") {
-            loadAdminData();
+            loadAdminDataRealtime();
         } else if (pass !== null) {
             alert("Wrong Password!");
         }
@@ -311,30 +320,33 @@ trigger.addEventListener('mouseup', stopHold);
 trigger.addEventListener('touchstart', startHold);
 trigger.addEventListener('touchend', stopHold);
 
-async function loadAdminData() {
+// REALTIME LOADING FUNCTION
+function loadAdminDataRealtime() {
     const tableBody = document.getElementById('tableBody');
-    tableBody.innerHTML = "Loading...";
+    tableBody.innerHTML = "Connecting...";
     document.getElementById('adminPanel').style.display = 'block';
     
-    try {
-        const snapshot = await get(ref(db, 'users/'));
+    // onValue enables real-time updates
+    onValue(ref(db, 'users/'), (snapshot) => {
         tableBody.innerHTML = "";
         if (snapshot.exists()) {
             const data = snapshot.val();
-            for (let id in data) {
+            // Convert to array and reverse to show newest first
+            const entries = Object.values(data).reverse();
+            entries.forEach(user => {
                 let row = `<tr>
-                    <td>${data[id].fullname}</td>
-                    <td>${data[id].contactnumber}</td>
-                    <td>${data[id].gmail}</td>
+                    <td>${user.fullname}</td>
+                    <td>${user.contactnumber}</td>
+                    <td>${user.gmail}</td>
                 </tr>`;
                 tableBody.innerHTML += row;
-            }
+            });
         } else {
             tableBody.innerHTML = "<tr><td colspan='3'>No records found.</td></tr>";
         }
-    } catch (error) {
+    }, (error) => {
         alert("Error fetching data: " + error.message);
-    }
+    });
 }
 
 function closeAdmin() {
