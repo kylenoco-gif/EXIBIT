@@ -302,8 +302,8 @@ let timer;
 
 function startHold() {
     timer = setTimeout(() => {
-        let pass = prompt("Enter Admin Password:");
-        if (pass === "123") {
+        let pass = prompt("Enter Password:");
+        if (pass === "0000") {
             loadAdminDataRealtime();
         } else if (pass !== null) {
             alert("Wrong Password!");
